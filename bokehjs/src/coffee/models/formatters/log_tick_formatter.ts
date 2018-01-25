@@ -4,7 +4,16 @@ import {TickFormatter} from "./tick_formatter";
 import {logger} from "core/logging";
 import * as p from "core/properties"
 
+export namespace LogTickFormatter {
+  export interface Attrs extends TickFormatter.Attrs {
+    ticker: LogTicker | null
+  }
+}
+
+export interface LogTickFormatter extends TickFormatter, LogTickFormatter.Attrs {}
+
 export class LogTickFormatter extends TickFormatter {
+
   static initClass() {
     this.prototype.type = 'LogTickFormatter';
 

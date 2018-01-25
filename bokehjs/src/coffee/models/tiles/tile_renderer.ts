@@ -9,6 +9,7 @@ import {includes} from "core/util/array";
 import {isString} from "core/util/types"
 
 export class TileRendererView extends RendererView {
+  model: TileRenderer
 
   initialize(options: any): void {
     this.attributionEl = null;
@@ -343,18 +344,31 @@ export class TileRendererView extends RendererView {
   }
 }
 
+export namespace TileRenderer {
+  export interface Attrs extends Renderer.Attrs {
+    alpha: number
+    x_range_name: string
+    y_range_name: string
+    tile_source: TileSource
+    render_parents: boolean
+  }
+}
+
+export interface TileRenderer extends Renderer, TileRenderer.Attrs {}
+
 export class TileRenderer extends Renderer {
+
   static initClass() {
-    this.prototype.default_view = TileRendererView;
     this.prototype.type = 'TileRenderer';
+    this.prototype.default_view = TileRendererView;
 
     this.define({
-        alpha:          [ p.Number,   1.0              ],
-        x_range_name:   [ p.String,   "default"        ],
-        y_range_name:   [ p.String,   "default"        ],
-        tile_source:    [ p.Instance, () => new WMTSTileSource() ],
-        render_parents: [ p.Bool,     true             ],
-      });
+      alpha:          [ p.Number,   1.0              ],
+      x_range_name:   [ p.String,   "default"        ],
+      y_range_name:   [ p.String,   "default"        ],
+      tile_source:    [ p.Instance, () => new WMTSTileSource() ],
+      render_parents: [ p.Bool,     true             ],
+    });
 
     this.override({
       level: 'underlay',

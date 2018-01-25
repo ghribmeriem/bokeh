@@ -3,13 +3,23 @@ import {TileSource} from "./tile_source";
 import * as p from "core/properties";
 import {includes, range} from "core/util/array";
 
+export namespace MercatorTileSource {
+  export interface Attrs extends TileSource.Attrs {
+    snap_to_zoom: boolean
+    wrap_around: boolean
+  }
+}
+
+export interface MercatorTileSource extends TileSource, MercatorTileSource.Attrs {}
+
 export class MercatorTileSource extends TileSource {
+
   static initClass() {
     this.prototype.type = 'MercatorTileSource';
 
     this.define({
-      snap_to_zoom:       [ p.Bool,   false              ],
-      wrap_around:        [ p.Bool,   true               ],
+      snap_to_zoom: [ p.Bool, false ],
+      wrap_around:  [ p.Bool, true  ],
     });
 
     this.override({

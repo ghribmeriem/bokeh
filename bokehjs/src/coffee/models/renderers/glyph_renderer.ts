@@ -11,6 +11,7 @@ import {difference, includes, range} from "core/util/array";
 import {extend, clone} from "core/util/object"
 
 export class GlyphRendererView extends RendererView {
+  model: GlyphRenderer
 
   initialize(options: any): void {
     super.initialize(options);
@@ -327,23 +328,28 @@ export class GlyphRendererView extends RendererView {
   }
 }
 
+export namespace GlyphRenderer {
+  export interface Attrs extends Renderer.Attrs {
+    x_range_name: string
+    y_range_name: string
+    data_source: DataSource
+    view: CDSView
+    glyph: Glyph
+    hover_glyph: Glyph
+    nonselection_glyph: Glyph | "auto"
+    selection_glyph: Glyph | "auto"
+    muted_glyph: Glyph
+    muted: boolean
+  }
+}
+
+export interface GlyphRenderer extends Renderer, GlyphRenderer.Attrs {}
+
 export class GlyphRenderer extends Renderer {
 
-  x_range_name: string
-  y_range_name: string
-  data_source: DataSource
-  view: CDSView
-  glyph: Glyph
-  hover_glyph: Glyph
-  nonselection_glyph: Glyph | "auto"
-  selection_glyph: Glyph | "auto"
-  muted_glyph: Glyph
-  muted: boolean
-
   static initClass() {
-    this.prototype.default_view = GlyphRendererView;
-
     this.prototype.type = 'GlyphRenderer';
+    this.prototype.default_view = GlyphRendererView;
 
     this.define({
         x_range_name:       [ p.String,  'default' ],

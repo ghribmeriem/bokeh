@@ -5,6 +5,7 @@ import * as p from "core/properties"
 import {range} from "core/util/array"
 
 export class MarkerView extends XYGlyphView {
+  model: Marker
 
   draw_legend_for_index(ctx, x0, x1, y0, y1, index) {
     // using objects like this seems a little wonky, since the keys are coerced to
@@ -148,9 +149,18 @@ export class MarkerView extends XYGlyphView {
   }
 }
 
-export class Marker extends XYGlyph {
-  static initClass() {
+export namespace Marker {
+  export interface MarkerAttrs extends XYGlyph.Attrs {
+    size: DistanceSpec
+    angle: AngleSpec
+  }
+}
 
+export interface Marker extends XYGlyph, Marker.Attrs {}
+
+export class Marker extends XYGlyph {
+
+  static initClass() {
     this.mixins(['line', 'fill']);
     this.define({
       size:  [ p.DistanceSpec, { units: "screen", value: 4 } ],

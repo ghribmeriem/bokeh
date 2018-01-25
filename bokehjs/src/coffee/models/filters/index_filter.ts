@@ -5,12 +5,21 @@ import {logger} from "core/logging";
 import {isInteger} from "core/util/types";
 import {all} from "core/util/array"
 
+export namespace IndexFilter {
+  export interface Attrs extends Filter.Attrs {
+    indices: number[] | null
+  }
+}
+
+export interface IndexFilter extends Filter, IndexFilter.Attrs {}
+
 export class IndexFilter extends Filter {
+
   static initClass() {
     this.prototype.type = 'IndexFilter';
 
     this.define({
-      indices:    [ p.Array,  null ],
+      indices: [ p.Array, null ],
     });
   }
 

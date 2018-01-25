@@ -104,6 +104,7 @@ export class DataProvider {
 }
 
 export class DataTableView extends WidgetView {
+  model: DataTable
 
   initialize(options: any): void {
     super.initialize(options);
@@ -255,21 +256,36 @@ export class DataTableView extends WidgetView {
   }
 }
 
+export namespace DataTable {
+  export interface Attrs extends TableWidget.Attrs {
+    columns: TableColumn[]
+    fit_columns: boolean
+    sortable: boolean
+    reorderable: boolean
+    editable: boolean
+    selectable: boolean
+    row_headers: boolean
+    scroll_to_selection: boolean
+  }
+}
+
+export interface DataTable extends TableWidget, DataTable.Attrs {}
+
 export class DataTable extends TableWidget {
   static initClass() {
     this.prototype.type = 'DataTable';
     this.prototype.default_view = DataTableView;
 
     this.define({
-        columns:             [ p.Array,  []    ],
-        fit_columns:         [ p.Bool,   true  ],
-        sortable:            [ p.Bool,   true  ],
-        reorderable:         [ p.Bool,   true  ],
-        editable:            [ p.Bool,   false ],
-        selectable:          [ p.Bool,   true  ],
-        row_headers:         [ p.Bool,   true  ],
-        scroll_to_selection: [ p.Bool,   true  ],
-      });
+      columns:             [ p.Array,  []    ],
+      fit_columns:         [ p.Bool,   true  ],
+      sortable:            [ p.Bool,   true  ],
+      reorderable:         [ p.Bool,   true  ],
+      editable:            [ p.Bool,   false ],
+      selectable:          [ p.Bool,   true  ],
+      row_headers:         [ p.Bool,   true  ],
+      scroll_to_selection: [ p.Bool,   true  ],
+    });
 
     this.override({
       height: 400,

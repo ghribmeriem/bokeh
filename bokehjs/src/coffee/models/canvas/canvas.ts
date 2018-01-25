@@ -21,7 +21,6 @@ if ((window as any).CanvasPixelArray != null) {
 }
 
 export class CanvasView extends DOMView {
-
   model: Canvas
 
   private _ctx: any
@@ -126,11 +125,21 @@ export class CanvasView extends DOMView {
   }
 }
 
+export namespace Canvas {
+  export interface Attrs extends LayoutCanvas.Attrs {
+    map: boolean
+    use_hidpi: boolean
+    pixel_ratio: number
+    output_backend: OutputBackend
+  }
+}
+
+export interface Canvas extends LayoutCanvas, Canvas.Attrs {}
+
 export class Canvas extends LayoutCanvas {
 
   static initClass() {
     this.prototype.type = "Canvas"
-
     this.prototype.default_view = CanvasView
 
     this.internal({
@@ -141,14 +150,8 @@ export class Canvas extends LayoutCanvas {
     })
   }
 
-  map: boolean
-  use_hidpi: boolean
-  pixel_ratio: number
-  output_backend: OutputBackend
-
   get panel() {
     return this
   }
 }
-
 Canvas.initClass()

@@ -3,13 +3,23 @@ import {Filter} from "./filter";
 import * as p from "core/properties";
 import {values} from "core/util/object"
 
+export namespace CustomJSFilter {
+  export interface Attrs extends Filter.Attrs {
+    args: {[key: string]: any}
+    code: string
+  }
+}
+
+export interface CustomJSFilter extends Filter, CustomJSFilter.Attrs {}
+
 export class CustomJSFilter extends Filter {
+
   static initClass() {
     this.prototype.type = 'CustomJSFilter';
 
     this.define({
-        args: [ p.Any,    {} ], // TODO (bev) better type
-        code: [ p.String, '' ],
+      args: [ p.Any,    {} ], // TODO (bev) better type
+      code: [ p.String, '' ],
     });
   }
 

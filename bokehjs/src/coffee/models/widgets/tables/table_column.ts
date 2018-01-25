@@ -5,7 +5,22 @@ import * as p from "core/properties";
 import {uniqueId} from "core/util/string";
 import {Model} from "../../../model"
 
+export namespace TableColumn {
+  export interface Attrs extends Model.Attrs {
+    field: string
+    title: string
+    width: number
+    formatter: CellFormatter
+    editor: CellEditor
+    sortable: boolean
+    default_sort: "ascending" | "descending"
+  }
+}
+
+export interface TableColumn extends Model, TableColumn.Attrs {}
+
 export class TableColumn extends Model {
+
   static initClass() {
     this.prototype.type = 'TableColumn';
     this.prototype.default_view = null;

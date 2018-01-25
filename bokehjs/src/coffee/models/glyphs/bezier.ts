@@ -76,6 +76,7 @@ const _cbb = function(x0, y0, x1, y1, x2, y2, x3, y3) {
 };
 
 export class BezierView extends GlyphView {
+  model: Bezier
 
   _index_data() {
     const points = [];
@@ -113,13 +114,20 @@ export class BezierView extends GlyphView {
   }
 }
 
+export namespace Bezier {
+  export interface Attrs extends Glyph.Attrs {
+  }
+}
+
+export interface Bezier extends Glyph, Bezier.Attrs {}
+
 export class Bezier extends Glyph {
+
   static initClass() {
+    this.prototype.type = 'Bezier';
     this.prototype.default_view = BezierView;
 
-    this.prototype.type = 'Bezier';
-
-    this.coords([ ['x0', 'y0'], ['x1', 'y1'], ['cx0', 'cy0'], ['cx1', 'cy1'] ]);
+    this.coords([['x0', 'y0'], ['x1', 'y1'], ['cx0', 'cy0'], ['cx1', 'cy1']]);
     this.mixins(['line']);
   }
 }

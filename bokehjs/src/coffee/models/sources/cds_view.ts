@@ -5,14 +5,25 @@ import {create_hit_test_result, HitTestResult} from "core/hittest"
 import {intersection, range} from "core/util/array"
 import {ColumnarDataSource} from "./columnar_data_source"
 
+export namespace CDSView {
+  export interface Attrs extends Model.Attrs {
+    filters: Filter[]
+    source: DataSource
+    indices: number[]
+    indices_map: {[key: string]: number[]}
+  }
+}
+
+export interface CDSView extends Model, CDSView.Attrs {}
 
 export class CDSView extends Model {
+
   static initClass() {
     this.prototype.type = 'CDSView'
 
     this.define({
-     filters: [ p.Array, [] ],
-     source:  [ p.Instance  ],
+      filters: [ p.Array, [] ],
+      source:  [ p.Instance  ],
     })
 
     this.internal({

@@ -3,6 +3,7 @@ import {XYGlyph, XYGlyphView} from "./xy_glyph";
 import * as p from "core/properties"
 
 export class StepView extends XYGlyphView {
+  model: Step
 
   _render(ctx, indices, {sx, sy}) {
     this.visuals.line.set_value(ctx);
@@ -51,11 +52,19 @@ export class StepView extends XYGlyphView {
   }
 }
 
-export class Step extends XYGlyph {
-  static initClass() {
-    this.prototype.default_view = StepView;
+export namespace Step {
+  export interface Attrs extends XYGlyph.Attrs {
+    mode: StepMode
+  }
+}
 
+export interface Step extends XYGlyph, Step.Attrs {}
+
+export class Step extends XYGlyph {
+
+  static initClass() {
     this.prototype.type = 'Step';
+    this.prototype.default_view = StepView;
 
     this.mixins(['line']);
     this.define({

@@ -3,7 +3,17 @@ import {Widget} from "../widget";
 import {CDSView} from "../../sources/cds_view";
 import * as p from "core/properties"
 
+export namespace TableWidget {
+  export interface Attrs extends Widget.Attrs {
+    source: DataSource
+    view: CDSView
+  }
+}
+
+export interface TableWidget extends Widget, TableWidget.Attrs {}
+
 export class TableWidget extends Widget {
+
   static initClass() {
     this.prototype.type = "TableWidget";
 

@@ -9,6 +9,11 @@ import {ColorMapper} from "./color_mapper"
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/log1p.
 const log1p = Math.log1p != null ? Math.log1p : x => Math.log(1 + x);
 
+export interface LogColorMapperAttrs extends ColorMapperAttrs {
+}
+
+export interface LogColorMapper extends ColorMapper, LogColorMapperAttrs {}
+
 export class LogColorMapper extends ColorMapper {
   static initClass() {
     this.prototype.type = "LogColorMapper";

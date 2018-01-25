@@ -20,6 +20,12 @@ export class DateRangeSliderView extends AbstractSliderView {
   }
 }
 
+export namespace DateRangeSlider {
+  export interface Attrs extends AbstractSlider.Attrs {}
+}
+
+export interface DateRangeSlider extends AbstractSlider, DateRangeSlider.Attrs {}
+
 export class DateRangeSlider extends AbstractSlider {
 
   static initClass() {

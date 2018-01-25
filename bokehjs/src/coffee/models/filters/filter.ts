@@ -5,12 +5,21 @@ import {isBoolean, isInteger} from "core/util/types";
 import {all, range} from "core/util/array";
 import {logger} from "core/logging"
 
+export namespace Filter {
+  export interface Attrs extends Model.Attrs {
+    filter: boolean[] | null
+  }
+}
+
+export interface Filter extends Model, Filter.Attrs {}
+
 export class Filter extends Model {
+
   static initClass() {
     this.prototype.type = 'Filter';
 
     this.define({
-      filter:      [p.Array,   null ],
+      filter: [ p.Array, null ],
     });
   }
 

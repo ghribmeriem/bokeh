@@ -5,6 +5,11 @@ import {color2hex} from "core/util/color";
 import {min, max} from "core/util/array";
 import {ColorMapper} from "./color_mapper"
 
+export interface LinearColorMapperAttrs extends ColorMapperAttrs {
+}
+
+export interface LinearColorMapper extends ColorMapper, LinearColorMapperAttrs {}
+
 export class LinearColorMapper extends ColorMapper {
   static initClass() {
     this.prototype.type = "LinearColorMapper";

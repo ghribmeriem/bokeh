@@ -192,6 +192,27 @@ export abstract class AbstractSliderView extends WidgetView {
   }
 }
 
+export namespace AbstractSlider {
+  export interface Attrs extends Widget.Attrs {
+    title: string
+    show_value: boolean
+    start: any // XXX
+    end: any // XXX
+    value: any // XXX
+    step: number
+    format: string
+    orientation: Orientation
+    direction: "ltr" | "rtl"
+    tooltips: boolean
+    callback: any // XXX
+    callback_throttle: number
+    callback_policy: SliderCallbackPolicy
+    bar_color: any // XXX: Color
+  }
+}
+
+export interface AbstractSlider extends Widget, AbstractSlider.Attrs {}
+
 export abstract class AbstractSlider extends Widget {
 
   static initClass() {
@@ -214,21 +235,6 @@ export abstract class AbstractSlider extends Widget {
       bar_color:         [ p.Color,       "#e6e6e6"    ],
     })
   }
-
-  title: string
-  show_value: boolean
-  start: any // XXX
-  end: any // XXX
-  value: any // XXX
-  step: number
-  format: string
-  orientation: Orientation
-  direction: "ltr" | "rtl"
-  tooltips: boolean
-  callback: any // XXX
-  callback_throttle: number
-  callback_policy: SliderCallbackPolicy
-  bar_color: any // XXX: Color
 
   behaviour = null
   connected = false

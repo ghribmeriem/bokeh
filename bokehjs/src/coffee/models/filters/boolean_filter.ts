@@ -5,12 +5,21 @@ import {logger} from "core/logging";
 import {range, all} from "core/util/array";
 import {isBoolean} from "core/util/types"
 
+export namespace BooleanFilter {
+  export interface Attrs extends Filter.Attrs {
+    booleans: boolean[] | null
+  }
+}
+
+export interface BooleanFilter extends Filter, BooleanFilter.Attrs {}
+
 export class BooleanFilter extends Filter {
+
   static initClass() {
     this.prototype.type = 'BooleanFilter';
 
     this.define({
-      booleans:    [ p.Array,  null ],
+      booleans: [ p.Array, null ],
     });
   }
 

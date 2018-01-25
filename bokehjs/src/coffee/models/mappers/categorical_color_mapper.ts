@@ -17,6 +17,11 @@ const _equals = function(a, b) {
   return true;
 };
 
+export interface CategoricalColorMapperAttrs extends ColorMapperAttrs {
+}
+
+export interface CategoricalColorMapper extends ColorMapper, CategoricalColorMapperAttrs {}
+
 export class CategoricalColorMapper extends ColorMapper {
   static initClass() {
     this.prototype.type = "CategoricalColorMapper";

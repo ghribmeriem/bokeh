@@ -4,6 +4,7 @@ import * as p from "core/properties"
 import {RBush} from "core/util/spatial"
 
 export class VBarView extends BoxView {
+  model: VBar
 
   scy(i) { return (this.stop[i] + this.sbottom[i])/2; }
 
@@ -35,17 +36,29 @@ export class VBarView extends BoxView {
   }
 }
 
+export namespace VBar {
+  export interface Attrs extends Box.Attrs {
+    width: DistanceSpec
+    top: NumberSpec
+  }
+}
+
+export interface VBar extends Box, VBar.Attrs {}
+
 export class VBar extends Box {
+
   static initClass() {
-    this.prototype.default_view = VBarView;
     this.prototype.type = 'VBar';
+    this.prototype.default_view = VBarView;
 
     this.coords([['x', 'bottom']]);
     this.define({
       width:  [ p.DistanceSpec  ],
       top:    [ p.NumberSpec    ],
     });
-    this.override({ bottom: 0 });
+    this.override({
+      bottom: 0,
+    });
   }
 }
 VBar.initClass();

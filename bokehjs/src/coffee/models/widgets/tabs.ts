@@ -63,6 +63,16 @@ export class TabsView extends WidgetView {
   }
 }
 
+export namespace Tabs {
+  export interface Attrs extends Widget.Attrs {
+    tabs: Panel[]
+    active: number
+    callback: any // XXX
+  }
+}
+
+export interface Tabs extends Widget, Tabs.Attrs {}
+
 export class Tabs extends Widget {
 
   static initClass() {

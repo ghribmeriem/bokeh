@@ -1,14 +1,4 @@
 /* XXX: partial */
-/*
- * decaffeinate suggestions:
- * DS101: Remove unnecessary use of Array.from
- * DS102: Remove unnecessary code created because of implicit returns
- * DS205: Consider reworking code to avoid use of IIFEs
- * DS206: Consider reworking classes to avoid initClass
- * DS207: Consider shorter variations of null checks
- * Full docs: https://github.com/decaffeinate/decaffeinate/blob/master/docs/suggestions.md
- */
-
 import * as p from "core/properties";
 import {empty} from "core/dom";
 import {logger} from "core/logging"
@@ -24,7 +14,14 @@ import {ToolProxy} from "./tool_proxy";
 import {LayoutDOM, LayoutDOMView} from "../layouts/layout_dom";
 import {build_views, remove_views} from "core/build_views"
 
+export namespace ProxyToolbar {
+  export interface Attrs extends ToolbarBase.Attrs {}
+}
+
+export interface ProxyToolbar extends ToolbarBase, ProxyToolbar.Attrs {}
+
 export class ProxyToolbar extends ToolbarBase {
+
   static initClass() {
     this.prototype.type = 'ProxyToolbar';
   }
@@ -168,6 +165,7 @@ export class ProxyToolbar extends ToolbarBase {
 ProxyToolbar.initClass();
 
 export class ToolbarBoxView extends LayoutDOMView {
+  model: ToolbarBox
 
   initialize(options: any): void {
     super.initialize(options);
@@ -204,13 +202,23 @@ export class ToolbarBoxView extends LayoutDOMView {
   }
 }
 
+export namespace ToolbarBox {
+  export interface Attrs extends LayoutDOM.Attrs {
+    toolbar: Toolbar
+    toolbar_location: Location
+  }
+}
+
+export interface ToolbarBox extends LayoutDOM, ToolbarBox.Attrs {}
+
 export class ToolbarBox extends LayoutDOM {
+
   static initClass() {
     this.prototype.type = 'ToolbarBox';
     this.prototype.default_view = ToolbarBoxView;
 
     this.define({
-      toolbar: [ p.Instance ],
+      toolbar:          [ p.Instance          ],
       toolbar_location: [ p.Location, "right" ],
     });
   }

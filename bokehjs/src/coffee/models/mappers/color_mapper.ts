@@ -4,6 +4,11 @@ import * as p from "core/properties";
 import {Transform} from "../transforms/transform";
 import {isNumber} from "core/util/types"
 
+export interface ColorMapperAttrs extends TransformAttrs {
+}
+
+export interface ColorMapper extends Transform, ColorMapperAttrs {}
+
 export class ColorMapper extends Transform {
   static initClass() {
     this.prototype.type = "ColorMapper";

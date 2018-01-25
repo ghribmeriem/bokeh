@@ -4,6 +4,7 @@ import * as hittest from "core/hittest";
 import * as p from "core/properties"
 
 export class AnnulusView extends XYGlyphView {
+  model: Annulus
 
   _map_data() {
     if (this.model.properties.inner_radius.units === "data") {
@@ -109,17 +110,26 @@ export class AnnulusView extends XYGlyphView {
   }
 }
 
-export class Annulus extends XYGlyph {
-  static initClass() {
-    this.prototype.default_view = AnnulusView;
+export namespace Annulus {
+  export interface Attrs extends XYGlyph.Attrs {
+    inner_radius: DistanceSpec
+    outer_radius: DistanceSpec
+  }
+}
 
+export interface Annulus extends XYGlyph, Annulus.Attrs {}
+
+export class Annulus extends XYGlyph {
+
+  static initClass() {
     this.prototype.type = 'Annulus';
+    this.prototype.default_view = AnnulusView;
 
     this.mixins(['line', 'fill']);
     this.define({
-        inner_radius: [ p.DistanceSpec ],
-        outer_radius: [ p.DistanceSpec ],
-      });
+      inner_radius: [ p.DistanceSpec ],
+      outer_radius: [ p.DistanceSpec ],
+    });
   }
 }
 Annulus.initClass();

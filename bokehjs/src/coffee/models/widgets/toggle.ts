@@ -3,6 +3,14 @@ import * as p from "core/properties"
 
 import {AbstractButton, AbstractButtonView} from "./abstract_button"
 
+export namespace ToggleView {
+  export interface Attrs extends AbstractButtonView.Attrs {
+    active: boolean
+  }
+}
+
+export interface ToggleView extends AbstractButtonView, ToggleView.Attrs {}
+
 export class ToggleView extends AbstractButtonView {
   model: Toggle
 

@@ -20,6 +20,12 @@ export class RangeSliderView extends AbstractSliderView {
   }
 }
 
+export namespace RangeSlider {
+  export interface Attrs extends AbstractSlider.Attrs {}
+}
+
+export interface RangeSlider extends AbstractSlider, RangeSlider.Attrs {}
+
 export class RangeSlider extends AbstractSlider {
 
   static initClass() {

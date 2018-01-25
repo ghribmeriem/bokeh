@@ -3,14 +3,28 @@ import * as p from "core/properties";
 import {Signal} from "core/signaling";
 import {Model} from "../../model"
 
+export namespace ToolProxy {
+  export interface Attrs extends Model.Attrs {
+    tools: Tool[]
+    active: boolean
+    disabled: boolean
+  }
+}
+
+export interface ToolProxy extends Model, ToolProxy.Attrs {}
+
 export class ToolProxy extends Model {
+
   static initClass() {
+    this.prototype.type = "ToolProxy"
+
     this.define({
       tools:    [ p.Array, []    ],
       active:   [ p.Bool,  false ],
       disabled: [ p.Bool,  false ],
     });
   }
+
   // Operates all the tools given only one button
 
   get button_view() {

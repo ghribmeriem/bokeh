@@ -10,16 +10,34 @@ import {InspectTool} from "./inspectors/inspect_tool";
 
 import {ToolbarBase, ToolbarBaseView} from "./toolbar_base"
 
+// XXX: add appropriate base classes to get rid of this
+export type Drag = Tool
+export type Inspection = Tool
+export type Scroll = Tool
+export type Tap = Tool
+
+export namespace Toolbar {
+  export interface Attrs extends ToolbarBase.Attrs {
+    active_drag: Drag | "auto"
+    active_inspect: Inspection | Inspection[] | "auto"
+    active_scroll: Scroll | "auto"
+    active_tap: Tap | "auto"
+  }
+}
+
+export interface Toolbar extends ToolbarBase, Toolbar.Attrs {}
+
 export class Toolbar extends ToolbarBase {
+
   static initClass() {
     this.prototype.type = 'Toolbar';
     this.prototype.default_view = ToolbarBaseView; // XXX
 
     this.define({
-        active_drag:     [ p.Any, 'auto' ],
-        active_inspect:  [ p.Any, 'auto' ],
-        active_scroll:   [ p.Any, 'auto' ],
-        active_tap:      [ p.Any, 'auto' ],
+      active_drag:     [ p.Any, 'auto' ],
+      active_inspect:  [ p.Any, 'auto' ],
+      active_scroll:   [ p.Any, 'auto' ],
+      active_tap:      [ p.Any, 'auto' ],
     });
   }
 
